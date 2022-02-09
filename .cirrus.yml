@@ -11,6 +11,7 @@ task:
   install_tg_owt_lib_depends_script:
   - pkg install -y 
       ffmpeg
+      libepoxy
       libevent
       jpeg-turbo
       opus
@@ -20,6 +21,7 @@ task:
   install_tg_owt_uses_script:
   - pkg install -y
       cmake
+      dialog4ports
       libX11
       libXcomposite
       libXdamage
@@ -28,6 +30,7 @@ task:
       libXrender
       mesa-dri
       mesa-libs
+      ninja
       pkgconf
   patch_tg_owt_script:
   - cd /usr/ports
