@@ -2,11 +2,13 @@ freebsd_instance:
   image_family: freebsd-13-0
 
 task:
-  install_build_depends_script:
+  checkout_ports_script:
+  - portsnap --interactive auto
+  install_tg_owt_build_depends_script:
   - pkg install -y
       v4l_compat
       yasm
-  install_lib_depends_script:
+  install_tg_owt_lib_depends_script:
   - pkg install -y 
       ffmpeg
       libevent
@@ -15,23 +17,71 @@ task:
       pipewire
       libusrsctp
       libvpx
-  install_uses_script:
+  install_tg_owt_uses_script:
   - pkg install -y
       cmake
+      libX11
+      libXcomposite
+      libXdamage
+      libXrandr
+      libXtst
+      libXrender
       mesa-dri
       mesa-libs
       pkgconf
-      xorg
-  checkout_ports_script:
-  - portsnap --interactive auto
-  patch_script:
+  patch_tg_owt_script:
   - cd /usr/ports
   - fetch https://github.com/glebius/ports/commit/d030cd5bcd20efa6c3fac55b48e75a32c823b588.patch
   - patch -p1 < d030cd5bcd20efa6c3fac55b48e75a32c823b588.patch
-  build_script:
+  build_tg_owt_script:
   - cd /usr/ports/net-im/tg_owt
+  - make fetch
+  - make
+  - make install
+  - make deinstall
+  - make package
+  - make install
+  patch_tdesktop_script:
+  - cd /usr/ports
+  - fetch https://github.com/glebius/ports/commit/3716d15b847aeb006ae17f7aee6cd0a8a89c0c0a.patch
+  - patch -p1 < 3716d15b847aeb006ae17f7aee6cd0a8a89c0c0a.patch
+  install_tdesktop_build_depends_script:
+  - pkg install -y
+      alsa-lib
+      microsoft-gsl
+      pulseaudio
+      range-v3
+      tl-expected
+      v4l_compat
+      yasm
+  install_tdesktop_build_depends_script:
+  - pkg install -y
+      ffmpeg
+      dbus
+      libdbusmenu-qt
+      enchant2
+      libevent
+      hunspell
+      jpeg-turbo
+      rnnoise
+      openal-soft
+      openh264
+      opus
+      pipewire
+      qt-code-generator
+      libusrsctp
+      xcb-util-keysyms
+      libxcbcommon
+      xxhash
+      libvpx
+  install_tesktop_uses_script:
+  - pkg install -y telegram-desktop
+  - pkg delete -y telegram-desktop
+  build_tdesktop_script:
+  - cd /usr/ports/net-im/telegram-desktop
   - make fetch
   - make
   - make install
   - make package
   - make deinstall
+  - make clean
