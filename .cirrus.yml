@@ -28,7 +28,6 @@ task:
       libXrandr
       libXtst
       libXrender
-      mesa-dri
       mesa-libs
       ninja
       pkgconf
@@ -61,9 +60,10 @@ task:
   - pkg install -y
       ffmpeg
       dbus
-      libdbusmenu-qt
+      libdbusmenu-qt5
       enchant2
       libevent
+      libxcb
       hunspell
       jpeg-turbo
       rnnoise
@@ -71,10 +71,9 @@ task:
       openh264
       opus
       pipewire
-      qt-code-generator
+      qr-code-generator
       libusrsctp
       xcb-util-keysyms
-      libxcbcommon
       xxhash
       libvpx
   install_tesktop_uses_script:
