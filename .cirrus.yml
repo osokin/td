@@ -2,14 +2,35 @@ freebsd_instance:
   image_family: freebsd-13-0
 
 task:
-  install_script:
-  - pkg install -y poudriere
-  create_env_script:
-  - poudriere jail -c -j 13amd64 -v 13.0-RELEASE
-  - pkg install -y git
-  - poudriere ports -c -p local
-  - cd /usr/local/poudriere/ports/local
-  - fetch https://github.com/glebius/ports/commit/678212c679d7d442d852ab19f248b0006cf7ecfd.patch
-  - patch -p1 < 678212c679d7d442d852ab19f248b0006cf7ecfd.patch
-  - poudriere bulk -j 13amd64 -p local net-im/tg_owt
-
+  install_build_depends_script:
+  - pkg install -y
+      v4l_compat
+      yasm
+  install_lib_depends_script:
+  - pkg install -y 
+      ffmpeg
+      libevent
+      jpeg-turbo
+      opus
+      pipewire
+      libusrsctp
+      libvpx
+  install_uses_script:
+  - pkg install -y
+      cmake
+      gbm
+      pkgconf
+      xorg
+  checkout_ports_script:
+  - portsnap auto
+  patch_script:
+  - cd /usr/ports
+  - fetch https://github.com/glebius/ports/commit/d030cd5bcd20efa6c3fac55b48e75a32c823b588.patch
+  - patch -p1 < d030cd5bcd20efa6c3fac55b48e75a32c823b588.patch
+  build_script:
+  - cd /usr/ports/net-im/tg_owt
+  - make fetch
+  - make
+  - make install
+  - make package
+  - make deinstall
