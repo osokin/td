@@ -1,0 +1,9 @@
+freebsd_instance:
+  image_family: freebsd-13-0
+
+task:
+  install_script: pkg install -y poudriere
+  create_env_script:
+  - poudriere jail -c -j 13amd64 -v 13.0-RELEASE
+  - poudriere ports -c -p local
+  - poudriere bulk -j 13amd64 -p local net-im/telegram-desktop
