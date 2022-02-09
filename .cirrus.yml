@@ -23,7 +23,7 @@ task:
       pkgconf
       xorg
   checkout_ports_script:
-  - portsnap auto
+  - portsnap fetch extract
   patch_script:
   - cd /usr/ports
   - fetch https://github.com/glebius/ports/commit/d030cd5bcd20efa6c3fac55b48e75a32c823b588.patch
