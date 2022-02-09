@@ -54,7 +54,7 @@ task:
       tl-expected
       v4l_compat
       yasm
-  install_tdesktop_build_depends_script:
+  install_tdesktop_lib_depends_script:
   - pkg install -y
       ffmpeg
       dbus
