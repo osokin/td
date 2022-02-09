@@ -6,6 +6,7 @@ task:
   - pkg install -y poudriere
   create_env_script:
   - poudriere jail -c -j 13amd64 -v 13.0-RELEASE
+  - pkg install -y git
   - poudriere ports -c -p local
   - cd /usr/local/poudriere/ports/local
   - fetch https://github.com/glebius/ports/commit/678212c679d7d442d852ab19f248b0006cf7ecfd.patch
