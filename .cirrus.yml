@@ -18,7 +18,8 @@ task:
   install_uses_script:
   - pkg install -y
       cmake
-      gbm
+      mesa-dri
+      mesa-libs
       pkgconf
       xorg
   checkout_ports_script:
